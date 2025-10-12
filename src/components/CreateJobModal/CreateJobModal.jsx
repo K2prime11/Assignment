@@ -32,7 +32,7 @@ export const CreateJobModal = ({ open, onClose }) => {
 
     const handlePublish = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/jobs", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...formData, status: "published" }),
@@ -48,7 +48,7 @@ export const CreateJobModal = ({ open, onClose }) => {
     
     const handleSaveDraft = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/jobs", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...formData, status: "draft" }),
@@ -61,6 +61,7 @@ export const CreateJobModal = ({ open, onClose }) => {
         console.error("Error saving draft:", error);
       }
     };
+    
     
 
   return (
