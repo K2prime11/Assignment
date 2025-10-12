@@ -17,7 +17,7 @@ import React, { useState } from "react";
 export const SearchBarSection = () => {
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
-  const [salaryRange, setSalaryRange] = useState([50, 80]);
+  const [salaryRange, setSalaryRange] = useState([0,30]);
 
   const handleSalaryChange = (event, newValue) => {
     setSalaryRange(newValue);
