@@ -53,12 +53,12 @@ export const JobListingsSection = () => {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        py: 4,
+        py: 6,
       }}
     >
       <Box
         sx={{
-          maxWidth: "1328px",
+          maxWidth: "1850px",
           display: "grid",
           gridTemplateColumns: {
             xs: "1fr",
@@ -76,13 +76,9 @@ export const JobListingsSection = () => {
               bgcolor: "white",
               borderRadius: 3,
               boxShadow: "0px 0px 14px rgba(211, 211, 211, 0.15)",
-              height: 360,
+              width:350,
+              height: 350,
               position: "relative",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0px 4px 20px rgba(211, 211, 211, 0.3)",
-              },
               p: 2.5,
             }}
           >
@@ -117,7 +113,7 @@ export const JobListingsSection = () => {
               label="24h Ago"
               sx={{
                 position: "absolute",
-                top: 20,
+                top: 18,
                 right: 20,
                 bgcolor: "#afd8ff",
                 color: "black",
@@ -216,9 +212,9 @@ export const JobListingsSection = () => {
               sx={{
                 fontFamily: "'Satoshi Variable', Helvetica",
                 fontWeight: 500,
-                fontSize: 14,
+                fontSize: 15,
                 color: "#555555",
-                pl: 3,
+                pl: 2,
                 mb: 3,
                 lineHeight: 1.5,
                 listStyleType: "disc",

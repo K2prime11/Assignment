@@ -1,6 +1,7 @@
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
+
 import {
   Box,
   Divider,
@@ -17,7 +18,7 @@ import React, { useState } from "react";
 export const SearchBarSection = () => {
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
-  const [salaryRange, setSalaryRange] = useState([0,30]);
+  const [salaryRange, setSalaryRange] = useState([0, 80]);
 
   const handleSalaryChange = (event, newValue) => {
     setSalaryRange(newValue);
@@ -26,11 +27,12 @@ export const SearchBarSection = () => {
   return (
     <Box
       sx={{
-        width: "100%",
+        width: "110vw",
         bgcolor: "white",
         boxShadow: "0px 0px 14px rgba(197, 191, 191, 0.25)",
         py: 2,
-        px: 4,
+        ml: -12,
+        pl: 7,
       }}
     >
       <Stack
@@ -109,7 +111,7 @@ export const SearchBarSection = () => {
             disableUnderline
             startAdornment={
               <InputAdornment position="start">
-                <WorkOutlineIcon sx={{ color: "#686868", mr: 1 }} />
+                <RecordVoiceOverOutlinedIcon sx={{ color: "#686868", mr: 1 }} />
               </InputAdornment>
             }
             sx={{

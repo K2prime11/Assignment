@@ -85,7 +85,6 @@ export const NavigationBarSection = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 pb: activeItem === item.value ? "3px" : "0px",
-                borderBottom: activeItem === item.value ? "3px solid #A128FF" : "none",
                 transition: "border-color 0.3s",
               }}
             >
