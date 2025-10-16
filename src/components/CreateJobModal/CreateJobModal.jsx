@@ -30,39 +30,37 @@ export const CreateJobModal = ({ open, onClose }) => {
   const handleChange = (field) => (event) =>
     setFormData({ ...formData, [field]: event.target.value });
 
-    const handlePublish = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formData, status: "published" }),
-        });
-    
-        const data = await response.json();
-        console.log("Job Published:", data);
-        onClose();
-      } catch (error) {
-        console.error("Error publishing job:", error);
-      }
-    };
-    
-    const handleSaveDraft = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formData, status: "draft" }),
-        });
-    
-        const data = await response.json();
-        console.log("Draft Saved:", data);
-        onClose();
-      } catch (error) {
-        console.error("Error saving draft:", error);
-      }
-    };
-    
-    
+  const handlePublish = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, status: "published" }),
+      });
+
+      const data = await response.json();
+      console.log("Job Published:", data);
+      onClose();
+    } catch (error) {
+      console.error("Error publishing job:", error);
+    }
+  };
+
+  const handleSaveDraft = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, status: "draft" }),
+      });
+
+      const data = await response.json();
+      console.log("Draft Saved:", data);
+      onClose();
+    } catch (error) {
+      console.error("Error saving draft:", error);
+    }
+  };
 
   return (
     <Dialog
@@ -94,7 +92,6 @@ export const CreateJobModal = ({ open, onClose }) => {
           </Typography>
         </Box>
 
-     
         <Stack direction="row" spacing={3}>
           <Box sx={{ flex: 1 }}>
             <Typography sx={labelStyle}>Job Title</Typography>
@@ -119,7 +116,6 @@ export const CreateJobModal = ({ open, onClose }) => {
           </Box>
         </Stack>
 
-     
         <Stack direction="row" spacing={3}>
           <Box sx={{ flex: 1 }}>
             <Typography sx={labelStyle}>Location</Typography>
@@ -154,9 +150,7 @@ export const CreateJobModal = ({ open, onClose }) => {
               }}
               sx={selectStyle}
             >
-              <MenuItem value="" disabled>
-               
-              </MenuItem>
+              <MenuItem value="" disabled></MenuItem>
               <MenuItem value="internship">Internship</MenuItem>
               <MenuItem value="fulltime">Full Time</MenuItem>
               <MenuItem value="parttime">Part Time</MenuItem>
@@ -308,7 +302,6 @@ export const CreateJobModal = ({ open, onClose }) => {
     </Dialog>
   );
 };
-
 
 const labelStyle = {
   fontFamily: "'Satoshi Variable', Helvetica",

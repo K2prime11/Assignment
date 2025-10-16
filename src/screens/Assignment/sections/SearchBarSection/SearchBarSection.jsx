@@ -18,7 +18,7 @@ import React, { useState } from "react";
 export const SearchBarSection = () => {
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
-  const [salaryRange, setSalaryRange] = useState([0, 80]);
+  const [salaryRange, setSalaryRange] = useState([50, 80]);
 
   const handleSalaryChange = (event, newValue) => {
     setSalaryRange(newValue);
@@ -164,8 +164,8 @@ export const SearchBarSection = () => {
             <Slider
               value={salaryRange}
               onChange={handleSalaryChange}
-              min={0}
-              max={200}
+              min={50}
+              max={90}
               sx={{
                 color: "#000000",
                 "& .MuiSlider-thumb": {

@@ -11,7 +11,7 @@ const navigationItems = [
 ];
 
 export const NavigationBarSection = () => {
-  const [activeItem, setActiveItem] = useState("find-jobs");
+  const [activeItem, setActiveItem] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -68,7 +68,7 @@ export const NavigationBarSection = () => {
           direction="row"
           alignItems="center"
           justifyContent="center"
-          spacing={4}
+          spacing={6}
           sx={{
             flexGrow: 1,
             flexShrink: 0,
@@ -84,14 +84,12 @@ export const NavigationBarSection = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                pb: activeItem === item.value ? "3px" : "0px",
                 transition: "border-color 0.3s",
               }}
             >
               <Typography
                 sx={{
                   fontFamily: "'Satoshi Variable', Helvetica",
-                  fontWeight: activeItem === item.value ? 700 : 500,
                   color: activeItem === item.value ? "#000000" : "#5a5a5a",
                   fontSize: "16px",
                   transition: "color 0.3s",
