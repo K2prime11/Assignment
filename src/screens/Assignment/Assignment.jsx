@@ -11,7 +11,7 @@ export const Assignment = () => {
         backgroundColor: "#fbfbff",
         width: "100vw",
         height:"100vh",
-        transform: "scale(0.9)", 
+        transform: "scale(0.89)", 
         transformOrigin: "top center",
       }}
     >

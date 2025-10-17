@@ -65,7 +65,7 @@ export const JobListingsSection = () => {
             sm: "repeat(2, 1fr)",
             md: "repeat(4, 1fr)",
           },
-          gap: 3,
+          gap: 5,
           px: { xs: 2, sm: 0 },
         }}
       >
@@ -76,7 +76,7 @@ export const JobListingsSection = () => {
               bgcolor: "white",
               borderRadius: 3,
               boxShadow: "0px 0px 14px rgba(211, 211, 211, 0.15)",
-              width:350,
+              width:385,
               height: 350,
               position: "relative",
               p: 2.5,
