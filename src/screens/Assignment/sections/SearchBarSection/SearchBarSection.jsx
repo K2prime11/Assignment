@@ -1,7 +1,6 @@
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
-
 import {
   Box,
   Divider,
@@ -15,24 +14,46 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-export const SearchBarSection = () => {
+export const SearchBarSection = ({ onFiltersChange }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
   const [salaryRange, setSalaryRange] = useState([50, 80]);
 
   const handleSalaryChange = (event, newValue) => {
     setSalaryRange(newValue);
+    onFiltersChange({ searchTerm, location, jobType, salaryRange: newValue }); 
   };
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onFiltersChange({ searchTerm: value, location, jobType });
+  };
+
+  const handleLocationChange = (e) => {
+    const value = e.target.value;
+    setLocation(value);
+    onFiltersChange({ searchTerm, location: value, jobType });
+  };
+
+  const handleJobTypeChange = (e) => {
+    const value = e.target.value;
+    setJobType(value);
+    onFiltersChange({ searchTerm, location, jobType: value });
+  };
+
+  
   return (
     <Box
       sx={{
-        width: "110vw",
+        width: "100vw", 
         bgcolor: "white",
         boxShadow: "0px 0px 14px rgba(197, 191, 191, 0.25)",
         py: 2,
-        ml: -12,
-        pl: 7,
+        px: 7, 
+        position: "relative",
+        left: 0,
       }}
     >
       <Stack
@@ -47,11 +68,14 @@ export const SearchBarSection = () => {
           />
         }
       >
+        {/* Search Bar */}
         <Box sx={{ flex: 1, px: 2 }}>
           <TextField
             fullWidth
             placeholder="Search By Job Title, Role"
             variant="standard"
+            value={searchTerm}
+            onChange={handleSearchChange}
             InputProps={{
               disableUnderline: true,
               startAdornment: (
@@ -69,11 +93,12 @@ export const SearchBarSection = () => {
           />
         </Box>
 
+        {/* Location */}
         <Box sx={{ flex: 1, px: 2 }}>
           <Select
             fullWidth
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={handleLocationChange}
             displayEmpty
             variant="standard"
             disableUnderline
@@ -92,20 +117,19 @@ export const SearchBarSection = () => {
               },
             }}
           >
-            <MenuItem value="" disabled>
-              Preferred Location
-            </MenuItem>
+            <MenuItem value="">Preferred Location</MenuItem>
             <MenuItem value="Chennai">Chennai</MenuItem>
             <MenuItem value="Coimbatore">Coimbatore</MenuItem>
             <MenuItem value="Bangalore">Bangalore</MenuItem>
           </Select>
         </Box>
 
+        {/* Job Type */}
         <Box sx={{ flex: 1, px: 2 }}>
           <Select
             fullWidth
             value={jobType}
-            onChange={(e) => setJobType(e.target.value)}
+            onChange={handleJobTypeChange}
             displayEmpty
             variant="standard"
             disableUnderline
@@ -124,22 +148,17 @@ export const SearchBarSection = () => {
               },
             }}
           >
-            <MenuItem value="" disabled>
-              Job type
-            </MenuItem>
-            <MenuItem value="fulltime">Full Time</MenuItem>
-            <MenuItem value="parttime">Part Time</MenuItem>
-            <MenuItem value="contract">Contract</MenuItem>
+            <MenuItem value="">Job Type</MenuItem>
+            <MenuItem value="Full Time">Full Time</MenuItem>
+            <MenuItem value="Part Time">Part Time</MenuItem>
+            <MenuItem value="Contract">Contract</MenuItem>
           </Select>
         </Box>
 
+        {/* Salary Range (unchanged) */}
         <Box sx={{ flex: 1.2, px: 3 }}>
           <Stack spacing={1}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography
                 sx={{
                   fontFamily: "Satoshi Variable, Helvetica",
@@ -174,14 +193,8 @@ export const SearchBarSection = () => {
                   backgroundColor: "white",
                   border: "5px solid #000000",
                 },
-                "& .MuiSlider-track": {
-                  height: 2,
-                  backgroundColor: "#000000",
-                },
-                "& .MuiSlider-rail": {
-                  height: 2,
-                  backgroundColor: "#000000",
-                },
+                "& .MuiSlider-track": { height: 2, backgroundColor: "#000000" },
+                "& .MuiSlider-rail": { height: 2, backgroundColor: "#000000" },
               }}
             />
           </Stack>

@@ -1,51 +1,101 @@
 import { Box, Button, Chip, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+// ✅ store salary as an array [min, max]
 const jobListings = [
   {
     id: 1,
     title: "Full Stack Developer",
     logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-77-2.png",
-  },
-  {
-    id: 2,
-    title: "Node Js Developer",
-    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-79-1.png",
-  },
-  {
-    id: 3,
-    title: "UX/UI Designer",
-    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-78-1.png",
-  },
-  {
-    id: 4,
-    title: "Full Stack Developer",
-    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-77-2.png",
+    location: "Chennai",
+    jobType: "Full Time",
+    salary: [50, 60],
   },
   {
     id: 5,
     title: "Node Js Developer",
     logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-79-2.png",
-  },
-  {
-    id: 6,
-    title: "UX/UI Designer",
-    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-78-1.png",
-  },
-  {
-    id: 7,
-    title: "Full Stack Developer",
-    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-77-2.png",
+    location: "Coimbatore",
+    jobType: "Part Time",
+    salary: [50, 60],
   },
   {
     id: 8,
+    title: "UX/UI Designer",
+    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-78-1.png",
+    location: "Bangalore",
+    jobType: "Contract",
+    salary: [50, 60],
+  },
+  {
+    id: 2,
+    title: "Full Stack Developer",
+    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-77-2.png",
+    location: "Coimbatore",
+    jobType: "Part Time",
+    salary: [60, 80],
+  },
+  {
+    id: 4,
     title: "Node Js Developer",
     logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-79-1.png",
+    location: "Chennai",
+    jobType: "Full Time",
+    salary: [60, 80],
+  },
+  {
+    id: 7,
+    title: "UX/UI Designer",
+    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-78-1.png",
+    location: "Chennai",
+    jobType: "Full Time",
+    salary: [60, 80],
+  },
+  {
+    id: 3,
+    title: "Full Stack Developer",
+    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-77-2.png",
+    location: "Bangalore",
+    jobType: "Contract",
+    salary: [80, 90],
+  },
+  {
+    id: 6,
+    title: "Node Js Developer",
+    logo: "https://c.animaapp.com/mglzl09gSzk8BX/img/image-79-1.png",
+    location: "Bangalore",
+    jobType: "Contract",
+    salary: [80, 90],
   },
 ];
 
-export const JobListingsSection = () => {
-  const visibleJobs = jobListings.slice(0, 8);
+export const JobListingsSection = ({ filters }) => {
+  const {
+    searchTerm = "",
+    location = "",
+    jobType = "",
+    salaryRange = [50, 90], 
+  } = filters || {};
+
+  const [visibleJobs, setVisibleJobs] = useState(jobListings);
+
+  useEffect(() => {
+    const filtered = jobListings.filter((job) => {
+      const matchesSearch = job.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesLocation = location ? job.location === location : true;
+      const matchesJobType = jobType ? job.jobType === jobType : true;
+
+      // ✅ salary comparison
+      const matchesSalary =
+        job.salary[0] >= salaryRange[0] && job.salary[1] <= salaryRange[1];
+
+      return matchesSearch && matchesLocation && matchesJobType && matchesSalary;
+    });
+
+    setVisibleJobs(filtered);
+  }, [searchTerm, location, jobType, salaryRange]);
 
   return (
     <Box
@@ -53,7 +103,7 @@ export const JobListingsSection = () => {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        py: 6,
+        py: 4,
       }}
     >
       <Box
@@ -76,16 +126,15 @@ export const JobListingsSection = () => {
               bgcolor: "white",
               borderRadius: 3,
               boxShadow: "0px 0px 14px rgba(211, 211, 211, 0.15)",
-              width:385,
-              height: 350,
+              width: 370,
+              height: 347,
               position: "relative",
               p: 2.5,
             }}
           >
-          
             <Box
               sx={{
-                width: 70,
+                width: 75,
                 height: 70,
                 display: "flex",
                 alignItems: "center",
@@ -100,15 +149,10 @@ export const JobListingsSection = () => {
               <img
                 src={job.logo}
                 alt={job.title}
-                style={{
-                  width: 45,
-                  height: 45,
-                  objectFit: "contain",
-                }}
+                style={{ width: 45, height: 45, objectFit: "contain" }}
               />
             </Box>
 
-          
             <Chip
               label="24h Ago"
               sx={{
@@ -125,7 +169,6 @@ export const JobListingsSection = () => {
               }}
             />
 
-           
             <Typography
               sx={{
                 fontFamily: "'Satoshi Variable', Helvetica",
@@ -138,13 +181,7 @@ export const JobListingsSection = () => {
               {job.title}
             </Typography>
 
-           
-            <Stack
-              direction="row"
-              alignItems="center"
-              spacing={2}
-              sx={{ mb: 2, flexWrap: "nowrap" }}
-            >
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
               <Stack direction="row" alignItems="center" spacing={0.5}>
                 <Box
                   component="img"
@@ -152,15 +189,7 @@ export const JobListingsSection = () => {
                   alt="Experience"
                   sx={{ width: 18, height: 18 }}
                 />
-                <Typography
-                  sx={{
-                    fontFamily: "'Satoshi Variable', Helvetica",
-                    fontWeight: 500,
-                    fontSize: 16,
-                    color: "#5a5a5a",
-                    whiteSpace: "nowrap",
-                  }}
-                >
+                <Typography sx={{ fontSize: 15, color: "#5a5a5a" }}>
                   1–3 yr Exp
                 </Typography>
               </Stack>
@@ -172,16 +201,8 @@ export const JobListingsSection = () => {
                   alt="Location"
                   sx={{ width: 18, height: 18 }}
                 />
-                <Typography
-                  sx={{
-                    fontFamily: "'Satoshi Variable', Helvetica",
-                    fontWeight: 500,
-                    fontSize: 16,
-                    color: "#5a5a5a",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Onsite
+                <Typography sx={{ fontSize: 15, color: "#5a5a5a" }}>
+                  {job.location}
                 </Typography>
               </Stack>
 
@@ -192,21 +213,12 @@ export const JobListingsSection = () => {
                   alt="Salary"
                   sx={{ width: 18, height: 18 }}
                 />
-                <Typography
-                  sx={{
-                    fontFamily: "'Satoshi Variable', Helvetica",
-                    fontWeight: 500,
-                    fontSize: 16,
-                    color: "#5a5a5a",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  12LPA
+                <Typography sx={{ fontSize: 14, color: "#5a5a5a" }}>
+                  ₹{job.salary[0]}k - ₹{job.salary[1]}k
                 </Typography>
               </Stack>
             </Stack>
 
-           
             <Box
               component="ul"
               sx={{
@@ -230,21 +242,18 @@ export const JobListingsSection = () => {
               </li>
             </Box>
 
-           
             <Button
               variant="contained"
               fullWidth
               sx={{
                 bgcolor: "#00aaff",
                 color: "white",
-                fontFamily: "'Satoshi Variable', Helvetica",
                 fontWeight: 700,
                 fontSize: 16,
                 textTransform: "none",
                 borderRadius: "10px",
                 py: 0.8,
                 transform: "translateY(-11px)",
-                boxShadow: "0px 0px 14px rgba(92, 92, 92, 0.15)",
                 "&:hover": { bgcolor: "#0099ee" },
               }}
             >
